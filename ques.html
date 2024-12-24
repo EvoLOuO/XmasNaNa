@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クリスマスプレゼント</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .message {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #fff;
+            padding: 10px;
+        }
+        .correct {
+            background-color: green;
+        }
+        .wrong {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <h1>クリスマスプレゼント</h1>
+        <div id="question-container" class="question">
+            <p>Q1: あなたはレースに出場し、2位の選手を追い越して何位になったの？</p>
+            <div>
+                <!---<p><button class="button" onclick="checkAnswer(4)">1</button></p>
+                <p><button class="button" onclick="checkAnswer(5)">2</button></p>
+                <p><button class="button" onclick="checkAnswer(3)">3</button></p>
+                <p><button class="button" onclick="checkAnswer(6)">4</button></p> -->
+				
+				<p><button class="button" onclick="checkAnswer('1')">1</button></p>
+                <p><button class="button" onclick="checkAnswer('2')">2</button></p>
+                <p><button class="button" onclick="checkAnswer('3')">3</button></p>
+                <p><button class="button" onclick="checkAnswer('4')">4</button></p>
+            </div>
+        </div>
+        <div id="message-container" class="message" style="display: none;"></div>
+        <div id="score-container" class="question" style="display:none;">
+            <p>コイン数： <span id="coin-count">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        let correctAnswers = 0;
+        let currentQuestion = 1;
+        let totalCoins = 0;
+
+        // 檢查答案
+        function checkAnswer(answer) {
+            const correctAnswer = currentQuestion === 1 ? '2' : currentQuestion === 2 ? 'メリー' : 'るる(爆誕🫑)';
+            const messageContainer = document.getElementById('message-container');
+            
+            if (answer === correctAnswer) {
+                totalCoins++;
+                messageContainer.innerText = '正解！';
+                messageContainer.className = 'message correct';
+            } else {
+                messageContainer.innerText = '不正解！';
+                messageContainer.className = 'message wrong';
+            }
+
+            // 顯示答題結果
+            messageContainer.style.display = 'block';
+            document.getElementById('coin-count').innerText = totalCoins;
+			
+			setTimeout(() => {
+                messageContainer.style.display = 'none';
+            }, 1000);
+
+            // 顯示金幣數量
+            if (currentQuestion < 3) {
+                currentQuestion++;
+                setTimeout(updateQuestion, 1000); // 1秒後更新問題
+            } else {
+                // 全部問題完成，跳轉到 game.html
+                setTimeout(() => {
+                    window.location.href = `game.html?coins=${totalCoins}`;
+                }, 1000);
+            }
+        }
+
+        // 更新題目
+        function updateQuestion() {
+            let questionText = '';
+            let answers = [];
+            if (currentQuestion === 2) {
+                questionText = 'Q2: メリーの父は5人の娘を持つ：1.ナナ、2.ニニ、3.ヌヌ、4.ネネ。5番目の娘の名前は？';
+                answers = ['のの', 'メリー', 'るる', 'みみ'];
+            } else if (currentQuestion === 3) {
+                questionText = 'Q3: かわいくて、料理上手で、オタクに優しいギャルは誰だ？？';
+                answers = ['新垣結衣', '小松菜奈', 'るる(爆誕🫑)', '浜辺美波'];
+            }
+
+            // 更新题目内容和按钮
+            document.getElementById('question-container').innerHTML = `
+                <p>${questionText}</p>
+                <div>
+                    <p><button class="button" onclick="checkAnswer('${answers[0]}')">${answers[0]}</button></p>
+                    <p><button class="button" onclick="checkAnswer('${answers[1]}')">${answers[1]}</button></p>
+                    <p><button class="button" onclick="checkAnswer('${answers[2]}')">${answers[2]}</button></p>
+                    <p><button class="button" onclick="checkAnswer('${answers[3]}')">${answers[3]}</button></p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
