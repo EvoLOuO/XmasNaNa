@@ -24,7 +24,7 @@ var winningOdds = {0:RARE_ODDS,1:COMMON_ODDS,2:COMMON_ODDS,3:COMMON_ODDS,4:COMMO
 //const RARE_ODDS =.05
 //const COMMON_ODDS = .1
 //const LOSING_ODDS = 1 - (RARE_ODDS + (COMMON_ODDS*7)) // we multiply by 7 because there are 7 prizes with common odds
-var winningOdds = {0:.05,1:.1,2:.2,3:.3,4:.35}
+var winningOdds = {0:.05,1:.2,2:.2,3:.25,4:.3}
 //add
 let totalCoins = new URLSearchParams(window.location.search).get('coins') || 0;
 totalCoins = parseInt(totalCoins);
